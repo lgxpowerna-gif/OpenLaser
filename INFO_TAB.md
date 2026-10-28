@@ -1,6 +1,6 @@
 # Info Tab
 
-A new **Info** tab is available in the sidebar.
+A **Info** tab is available in the sidebar.
 
 ## What it shows
 
@@ -8,7 +8,8 @@ A new **Info** tab is available in the sidebar.
 - Machine size (width × height)
 - PWM Max / Min S values
 - Beam diameter
-- Quick recommended settings for GRBL diode lasers (`$32=1`, `$30=1000`, etc.)
+- Connection tips for GRBL diode lasers
+- Reminder that travel optimization runs automatically after Generate
 
 ## Location
 
@@ -16,7 +17,7 @@ Sidebar → **Info** (info-circle icon), between Settings and About.
 
 ## Files
 
-- `src/components/info.jsx` — the component
-- `src/components/laserweb.jsx` — pane registration
+- `src/components/info.jsx`
+- `src/components/laserweb.jsx`
 
 The tab reads from the current settings and connection state.

@@ -18,8 +18,8 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 
 ## Phase 2 — Critical Bug Fixes
 - [x] Firefox raster G-code generation recursion crash (safer iterative postProcessRaster)
+- [x] Jerky motion on raster due to overly fine S-value steps (default S precision reduced from 4 to 1)
 - [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards)
-- [ ] Jerky motion on raster due to overly fine S-value steps
 - [ ] Inconsistent PWM / S-value scaling vs other tools
 - [ ] Out-of-bounds handling and machine bounds checks
 - [ ] Dependency security and build failures on modern systems

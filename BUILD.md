@@ -2,49 +2,55 @@
 
 The original stack is old. These notes help get a working build on modern Node.
 
-## Quick start (Node 18+)
+## Quick start (Node 18 / 20) — tested working
 
 ```sh
 git clone https://github.com/lgxpowerna-gif/OpenLaser.git
 cd OpenLaser
-npm install --legacy-peer-deps
+npm install --legacy-peer-deps --ignore-scripts
 npm start
 ```
 
-A `.npmrc` with `legacy-peer-deps=true` is now included so `npm install` works more reliably.
+`--ignore-scripts` skips native module rebuilds that often fail on modern Node (serialport, etc.). The frontend will still start.
 
-## Known issues on Node 18 / 20
+A `.npmrc` with `legacy-peer-deps=true` is included.
+
+## If you need the backend (serial port)
+
+Native modules require build tools:
+
+```sh
+# Ubuntu/Debian
+sudo apt-get install build-essential python3
+
+# Then reinstall without --ignore-scripts
+npm install --legacy-peer-deps
+```
+
+## Known issues
 
 - Webpack 2 and webpack-dev-server 2.x produce many deprecation warnings (expected).
-- Some Babel 6 plugins are obsolete but still functional for this codebase.
-- Git dependencies may occasionally fail; retry with:
-  ```sh
-  npm install --legacy-peer-deps
-  ```
-- If `webpack-dev-server` fails to start, build a static bundle instead:
-  ```sh
-  npm run bundle-dev
-  ```
-  then serve the `dist` folder with any static server (e.g. `npx serve dist`).
+- Some Babel 6 plugins are obsolete but still functional.
+- If `webpack-dev-server` fails to open a browser (headless), that is normal. The app is still available at http://localhost:8080.
 
 ## Backend
 
-The forked `lw.comm-server` (with longer firmware timeouts) is used. It is installed via the `package.json` git dependency.
+The forked `lw.comm-server` (longer firmware timeouts) is used via the `package.json` git dependency.
 
 ## Recommended install sequence
 
 ```sh
 git clone https://github.com/lgxpowerna-gif/OpenLaser.git
 cd OpenLaser
-npm install --legacy-peer-deps
-# If submodules are needed:
-# git submodule update --init --recursive
+npm install --legacy-peer-deps --ignore-scripts
 npm start
 ```
 
+Frontend will be at http://localhost:8080.
+
 ## Next modernization steps
 
-1. Get a clean `npm start` on Node 18 (warnings OK for now).
+1. Get a clean `npm start` on Node 18 (warnings OK for now) — **done**.
 2. Replace webpack-dev-server with a simpler workflow.
 3. Gradually update critical dependencies.
 

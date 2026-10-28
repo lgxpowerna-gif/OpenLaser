@@ -7,6 +7,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - Modernize the tech stack so it builds and runs on current Node/browsers
 - Improve reliability for common diode lasers (GRBL, Sculpfun, etc.)
 - Add useful missing features from the original wishlist
+- Deliver accurate, consistent results for amateurs and professionals
 
 ## Phase 1 — Stabilization & Branding
 - [x] Fork and rebrand content to OpenLaser
@@ -36,10 +37,11 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [ ] Improve Electron / installer story
 
 ## Phase 4 — Features
-- [x] G-code optimizer notes + simple travel optimizer module (src/lib/gcode-optimizer.js)
+- [x] G-code travel optimizer runs **automatically** after generation (manual button removed)
+- [x] Real progress reporting during optimization
 - [x] Firmware & material profile guidance (PROFILES.md)
 - [x] Recommended settings for L1 and L2 machines (MACHINES.md)
-- G-code optimizer integration into the UI (optional)
+- [x] Accuracy & consistency notes (ACCURACY.md)
 - Better raster → vector options
 - Improved material database entries
 - Webcam / alignment helpers

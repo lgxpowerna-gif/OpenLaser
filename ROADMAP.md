@@ -36,9 +36,10 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [ ] Improve Electron / installer story
 
 ## Phase 4 — Features
-- [x] G-code optimizer notes (GCODE_OPTIMIZER.md)
+- [x] G-code optimizer notes + simple travel optimizer module (src/lib/gcode-optimizer.js)
 - [x] Firmware & material profile guidance (PROFILES.md)
-- G-code optimizer implementation (optional post-process)
+- [x] Recommended settings for L1 and L2 machines (MACHINES.md)
+- G-code optimizer integration into the UI (optional)
 - Better raster → vector options
 - Improved material database entries
 - Webcam / alignment helpers

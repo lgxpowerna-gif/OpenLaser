@@ -3,6 +3,9 @@
   "version": "4.1.0-alpha",
   "description": "OpenLaser - Continued open-source Laser & CNC CAM / Controller (fork of LaserWeb4)",
   "main": "./src/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start-server": "node node_modules/lw.comm-server/server.js",
     "start-app": "webpack-dev-server --progress --colors --open",

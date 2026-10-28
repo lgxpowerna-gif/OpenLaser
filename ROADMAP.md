@@ -28,6 +28,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 ## Phase 3 — Modernization
 - [x] Engines declared for Node 18+
 - [x] MODERNIZATION.md and BUILD.md added with plan and Node 18 workarounds
+- [x] Added `.npmrc` with `legacy-peer-deps=true` for more reliable installs
 - [ ] Make current stack build cleanly on Node 18+/20+ (warnings acceptable for now)
 - [ ] Replace ancient webpack-dev-server / hot reload setup
 - [ ] Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)

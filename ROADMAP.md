@@ -19,17 +19,18 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 ## Phase 2 — Critical Bug Fixes
 - [x] Firefox raster G-code generation recursion crash (safer iterative postProcessRaster)
 - [x] Jerky motion on raster due to overly fine S-value steps (default S precision reduced from 4 to 1)
-- [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards) — see CONNECTION.md for current workarounds
+- [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards) — see CONNECTION.md (timeouts, retries, profiles)
 - [ ] Inconsistent PWM / S-value scaling vs other tools
 - [ ] Out-of-bounds handling and machine bounds checks
 - [ ] Dependency security and build failures on modern systems
 
 ## Phase 3 — Modernization
-- Move from React 15 + Webpack 2 + Babel 6 to current React (or keep stable and upgrade tooling first)
-- Replace ancient webpack-dev-server / hot reload setup
-- Node 18+ / 20+ support (engines already declared)
-- Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)
-- Improve Electron / installer story
+- [x] Engines declared for Node 18+
+- [x] MODERNIZATION.md added with plan
+- [ ] Make current stack build cleanly on Node 18+/20+
+- [ ] Replace ancient webpack-dev-server / hot reload setup
+- [ ] Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)
+- [ ] Improve Electron / installer story
 
 ## Phase 4 — Features
 - G-code optimizer (reduce unnecessary G0 moves)

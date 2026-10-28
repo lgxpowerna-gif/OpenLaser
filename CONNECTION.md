@@ -14,6 +14,12 @@ https://github.com/lgxpowerna-gif/lw.comm-server
 
 This gives modern GRBL-ESP32 and Sculpfun boards more time to send their welcome string after reset.
 
+## Frontend auto-retry
+
+A simple one-time auto-retry has been added in the frontend (`src/components/com.js`):
+- If the server reports "No supported firmware detected", the frontend automatically tries to connect once more after 1.5 seconds.
+- This covers the common case where the first detection fails but the second succeeds.
+
 ## GRBL / Sculpfun / ESP32 boards
 
 Many modern diode lasers fail to connect with "No supported firmware detected" or timeout.
@@ -33,15 +39,14 @@ Many modern diode lasers fail to connect with "No supported firmware detected" o
    GRBL_WAIT_TIME=5
    RESET_ON_CONNECT=1
    ```
-4. Try connecting twice (first connection sometimes fails, second succeeds).
+4. The frontend will automatically retry once on detection failure.
 5. Make sure laser mode is on: `$32=1`.
 6. Startup G-code should end with `M4 S0` for dynamic power mode.
 
 ### ESP32-specific
-Some GRBL-ESP32 builds do not reply to the initial firmware query the same way classic GRBL does. The longer timeout helps. If it still fails, the welcome string may need to be added in `server.js`.
+Some GRBL-ESP32 builds do not reply to the initial firmware query the same way classic GRBL does. The longer timeout + auto-retry helps. If it still fails, the welcome string may need to be added in `server.js`.
 
 ## Planned further improvements
-- Simple auto-retry on first connection failure
 - Explicit ESP32 / Sculpfun profiles
 - Clearer error messages in the UI
 

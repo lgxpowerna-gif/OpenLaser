@@ -2,23 +2,28 @@
 
 ## What was added
 
+- **G-code generation** (`getGcode`) is wrapped in try/catch.
+  - Failures show an actionable alert instead of crashing.
+
 - **Travel optimizer** is wrapped in try/catch.
-  - If optimization fails, the original G-code is kept and an error is logged.
-  - Message: “Travel optimization failed — using original G-code.”
+  - On failure, the original G-code is kept and an error is logged.
 
-- **Server error** messages now include a short recovery hint.
+- **Info tab** render is protected.
+  - Shows a fallback message if rendering fails.
 
-- **ALARM** messages already include resume guidance.
+- **Server and ALARM** messages include recovery hints.
 
 ## Behavior
 
-- Failures in post-processing no longer crash the generation flow.
-- Connection and generation errors show actionable text in Command History.
+- Critical paths no longer fail silently or crash the UI.
+- Errors appear in Command History with short suggestions.
 
 ## Files
 
-- `src/lib/gcode-optimizer.js` — internal try/catch
-- `src/components/cam.jsx` — optimizer call wrapped
-- `src/components/com.jsx` — clearer server error text
+- `src/lib/cam-gcode.js`
+- `src/lib/gcode-optimizer.js`
+- `src/components/cam.jsx`
+- `src/components/com.jsx`
+- `src/components/info.jsx`
 
 See also ERRORS.md and RESUME.md.

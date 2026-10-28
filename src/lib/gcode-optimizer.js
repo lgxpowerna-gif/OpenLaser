@@ -1,5 +1,5 @@
 // G-code travel optimizer for OpenLaser
-// Merges consecutive G0 moves. Reports real progress via optional callback.
+// Memory-conscious: processes line-by-line and reports progress so low-RAM machines stay responsive.
 
 export function optimizeGcodeTravel(gcode, onProgress) {
     if (!gcode || typeof gcode !== 'string') return gcode;
@@ -32,14 +32,12 @@ export function optimizeGcodeTravel(gcode, onProgress) {
             }
         }
 
-        // Report real progress every ~2% or on last line
-        if (onProgress && (i % Math.max(1, Math.floor(total / 50)) === 0 || i === total - 1)) {
+        if (onProgress && (i % Math.max(1, Math.floor(total / 40)) === 0 || i === total - 1)) {
             onProgress(Math.round(((i + 1) / total) * 100));
         }
     }
 
     if (lastG0) result.push(lastG0);
-
     if (onProgress) onProgress(100);
     return result.join('\n');
 }

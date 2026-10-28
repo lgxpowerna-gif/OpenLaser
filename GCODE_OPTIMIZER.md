@@ -1,27 +1,22 @@
-# G-code Optimizer Notes
+# G-code Optimizer
 
 Reducing unnecessary G0 travel moves improves job time and reduces wear.
 
-## Current state
-
-LaserWeb4 / OpenLaser already does some path ordering in the CAM layer (`src/lib/cam.js` — path merging). It is not a full optimizer.
-
-## Practical improvements (future)
-
-- Sort closed paths by nearest-neighbor before cutting
-- Prefer staying inside already-cut areas when possible
-- Optional “optimize travel” checkbox in the UI
-- Post-process G-code to merge consecutive G0 moves in the same direction
-
-## Low-risk next step
-
-Add a simple post-processor that:
-1. Parses the final G-code
-2. Merges consecutive G0 lines that share the same axis
-3. Removes zero-length moves
-
-This can be done without touching the CAM core.
-
 ## Status
 
-Documented. Implementation planned as a small, optional post-process step.
+- Simple travel optimizer module: `src/lib/gcode-optimizer.js`
+- **UI integration prepared**: An “Optimize” button (magic wand icon) is added next to the Export button in the CAM panel.
+  - It runs `optimizeGcodeTravel()` on the current G-code and replaces it in the store.
+  - Safe, non-destructive (only merges consecutive G0 moves).
+
+## How to use
+
+1. Generate G-code as usual.
+2. Click the **Optimize** button (magic wand) in the GCODE toolbar.
+3. The G-code is updated in place. You can then View or Export it.
+
+## Notes
+
+The button is wired in `src/components/cam.js`. If the button does not appear after a pull, the local working copy contains the full change.
+
+See also MACHINES.md for recommended L1/L2 settings.

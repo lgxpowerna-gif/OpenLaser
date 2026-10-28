@@ -12,14 +12,14 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Fork and rebrand content to OpenLaser
 - [x] Update package.json name/description
 - [x] Update About page and page title
-- [ ] Rename GitHub repository to `OpenLaser` (user action in Settings)
+- [x] Rename GitHub repository to `OpenLaser`
 - [x] Document current build requirements and known breakage
 - [x] Add engines field and basic modern Node compatibility notes
 
 ## Phase 2 — Critical Bug Fixes
 - [x] Firefox raster G-code generation recursion crash (safer iterative postProcessRaster)
 - [x] Jerky motion on raster due to overly fine S-value steps (default S precision reduced from 4 to 1)
-- [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards)
+- [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards) — see CONNECTION.md for current workarounds
 - [ ] Inconsistent PWM / S-value scaling vs other tools
 - [ ] Out-of-bounds handling and machine bounds checks
 - [ ] Dependency security and build failures on modern systems

@@ -2,16 +2,12 @@
 
 ## Current status
 
-Vite starts and serves the app after renaming key files from `.js` to `.jsx`.
+Most component files that contain JSX have been renamed from `.js` to `.jsx`. Vite starts and serves the app.
 
-### Renamed so far
-- `src/index.js` → `src/index.jsx`
-- `src/components/laserweb.js` → `src/components/laserweb.jsx`
-- `src/components/cam.js` → `src/components/cam.jsx`
-- `src/components/workspace.js` → `src/components/workspace.jsx`
-- `src/components/com.js` → `src/components/com.jsx`
-
-`index.html` points to `/src/index.jsx`.
+### Key renames
+- Entry: `src/index.jsx`
+- Main components: `laserweb.jsx`, `cam.jsx`, `workspace.jsx`, `com.jsx`, `jog.jsx`, `operation.jsx`, `forms.jsx`, `font-awesome.jsx`, and others
+- Explicit imports updated where they used `.js` extensions
 
 ## How to run
 
@@ -20,15 +16,13 @@ npm install --save-dev vite @vitejs/plugin-react
 npx vite --config vite.config.mjs
 ```
 
-The app is available at http://localhost:8080 (or the port Vite prints).
-
 ## Remaining work
 
-Other component files that contain JSX may still need to be renamed from `.js` to `.jsx` as they are imported. Vite will report the next file that fails.
+A few library files under `src/lib/` may still contain JSX-like syntax and need attention if Vite reports them. The original Webpack setup remains available as a fallback.
 
 ## Notes
 
-- The original Webpack setup still works.
-- Vite is now past the first JSX parsing error on the entry point.
+- Syntax error in `cam.jsx` (stray brace) was fixed.
+- Import paths that hard-coded `.js` were updated to `.jsx` for renamed files.
 
 See also BUILD.md.

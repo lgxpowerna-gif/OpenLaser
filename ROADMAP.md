@@ -21,7 +21,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Jerky motion on raster due to overly fine S-value steps (default S precision reduced from 4 to 1)
 - [x] Connection / firmware detection timeouts increased in forked lw.comm-server (firmwareWaitTime 15s, grblWaitTime 3s)
 - [x] Frontend auto-retry on first firmware detection failure
-- [ ] Inconsistent PWM / S-value scaling vs other tools
+- [x] Default PWM Max S Value changed from 1 to 1000 (matches typical GRBL $30)
 - [ ] Out-of-bounds handling and machine bounds checks
 - [ ] Dependency security and build failures on modern systems
 

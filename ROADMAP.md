@@ -20,15 +20,15 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Firefox raster G-code generation recursion crash (safer iterative postProcessRaster)
 - [x] Jerky motion on raster due to overly fine S-value steps (default S precision reduced from 4 to 1)
 - [x] Connection / firmware detection timeouts increased in forked lw.comm-server (firmwareWaitTime 15s, grblWaitTime 3s)
-- [ ] Connection auto-retry on first failure
+- [x] Frontend auto-retry on first firmware detection failure
 - [ ] Inconsistent PWM / S-value scaling vs other tools
 - [ ] Out-of-bounds handling and machine bounds checks
 - [ ] Dependency security and build failures on modern systems
 
 ## Phase 3 — Modernization
 - [x] Engines declared for Node 18+
-- [x] MODERNIZATION.md added with plan
-- [ ] Make current stack build cleanly on Node 18+/20+
+- [x] MODERNIZATION.md and BUILD.md added with plan and Node 18 workarounds
+- [ ] Make current stack build cleanly on Node 18+/20+ (warnings acceptable for now)
 - [ ] Replace ancient webpack-dev-server / hot reload setup
 - [ ] Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)
 - [ ] Improve Electron / installer story

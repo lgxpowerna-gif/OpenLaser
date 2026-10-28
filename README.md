@@ -8,15 +8,29 @@ LaserWeb had all the right features (SVG/DXF/image to G-code, raster, WebGL view
 
 **License**: AGPL-3.0 (same as original). All original copyright notices and credits are preserved.
 
+## Current status (2026-10)
+
+- Repository renamed to **OpenLaser**
+- Firefox raster recursion crash fixed (iterative post-processing)
+- Raster motion smoothness improved (S-value precision reduced from 4 to 1 decimal)
+- Roadmap and branding updated
+- Next: connection/firmware detection reliability + build modernization
+
 ## Why the rename?
 
 Original project appears largely abandoned (binaries years old, limited maintenance). Renaming avoids confusion and trademark issues while keeping full attribution.
 
-## Current status
+## Development
 
-- Forked from LaserWeb4 `dev-es6`
-- Goal: fix known bugs (connection issues, raster glitches, Firefox recursion, dependency rot, inconsistent G-code, etc.), improve reliability, and eventually modernize (React 18+, current Webpack/Vite, Node 18+).
-- Binaries not yet rebuilt. Development environment only for now.
+Clone and install:
+```sh
+git clone https://github.com/lgxpowerna-gif/OpenLaser.git
+cd OpenLaser
+npm run installdev
+npm start
+```
+
+Requires Node 18+.
 
 ## Original LaserWeb credits
 
@@ -27,11 +41,9 @@ Original project appears largely abandoned (binaries years old, limited maintena
 - Claudio Prezzi (Communications Modules and Server)
 - Monte Krol, Anthony Tamrin, Ariel Yahni, Anthony Bolgar, and all community contributors
 
-See original README below for technical details, supported firmwares, and Docker instructions.
-
 ---
 
-## Original README (preserved)
+## Original README (preserved for reference)
 
 # LaserWeb (4.0.x)
 
@@ -75,7 +87,7 @@ docker build -f Dockerfile.release -t laserweb:release .
 
 ## Community
 Please use the community forum on https://forum.makerforums.info/c/cad-cam/laserweb-cncweb/78 for questions and support.
-Please only report confirmed bugs on the git [Issues tab](https://github.com/LaserWeb/LaserWeb4/issues).
+Please only report confirmed bugs on the git [Issues tab](https://github.com/lgxpowerna-gif/OpenLaser/issues).
 
 ## Supported firmwares
 

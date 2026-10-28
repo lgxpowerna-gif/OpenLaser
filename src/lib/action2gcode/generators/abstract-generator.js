@@ -7,18 +7,48 @@ class AbstractGenerator {
     this.settings = settings;
   }
 
-  postProcessRaster(gcode){
-    if (this.settings.gcodeToolOn && this.settings.gcodeToolOff){
-      gcode = XRegExp.replace(gcode,new XRegExp("G0(.*?)G1","gis"),'G0$1\n'+this.settings.gcodeToolOn+'\nG1')
-      gcode = XRegExp.replace(gcode,new XRegExp("G1(.*?)G0","gis"),'G1$1\n'+this.settings.gcodeToolOff+'\nG0')
+  postProcessRaster(gcode) {
+    if (!this.settings.gcodeToolOn || !this.settings.gcodeToolOff) {
       return gcode;
-      //return gcode.replace(new XRegExp("G0(.*?)G1","gis"),'G0$1\n'+this.settings.gcodeToolOn+'\nG1').replace(new XRegExp("G1(.*?)G0","gis"),'G1$1\n'+this.settings.gcodeToolOff+'\nG0')
     }
-    return gcode;
-  }
 
+    // Safer iterative approach to avoid Firefox stack overflow from heavy XRegExp recursion on large G-code
+    const lines = gcode.split(/\r?\n/);
+    const result = [];
+    let laserOn = false;
+    const toolOn = this.settings.gcodeToolOn;
+    const toolOff = this.settings.gcodeToolOff;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) {
+        result.push(lines[i]);
+        continue;
+      }
+
+      const isG0 = /^G0\b/i.test(line);
+      const isG1 = /^G1\b/i.test(line);
+
+      if (isG0 && laserOn) {
+        result.push(toolOff);
+        laserOn = false;
+      } else if (isG1 && !laserOn) {
+        result.push(toolOn);
+        laserOn = true;
+      }
+
+      result.push(lines[i]);
+    }
+
+    // Ensure laser is off at the end
+    if (laserOn) {
+      result.push(toolOff);
+    }
+
+    return result.join('\n');
+  }
 }
- 
+
 // Exports
 export { AbstractGenerator }
 export default AbstractGenerator

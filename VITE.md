@@ -1,43 +1,24 @@
-# Vite Configuration (Experimental)
+# Build Notes
 
-## Current status
+## Preferred: Embedded Webpack path
 
-Vite starts cleanly and serves the main entry and key components (HTTP 200 on root, index.jsx, laserweb.jsx, cam.jsx, workspace.jsx, com.jsx, operation.jsx).
-
-Most component files containing JSX have been renamed from `.js` to `.jsx`, and explicit imports were updated.
-
-## Next known blocker: Web Workers
-
-The CAM pipeline uses Webpack-specific syntax:
-
-```js
-require('worker-loader!./workers/cam-preflight.js')
-require('worker-loader!./workers/cam-lasercut.js')
-require('worker-loader!./workers/cam-mill.js')
-require('worker-loader!./workers/cam-lathe.js')
-require('worker-loader!./workers/cam-raster.js')
-```
-
-Vite does not understand `worker-loader!`. These need to be converted to Vite's native worker imports (e.g. `new Worker(new URL('./workers/cam-preflight.js', import.meta.url))` or the `?worker` suffix).
-
-Until that is done, G-code generation that relies on those workers will fail under Vite.
-
-## How to run
-
-```sh
-npm install --save-dev vite @vitejs/plugin-react
-npx vite --config vite.config.mjs
-```
-
-## Fallback
-
-The original Webpack setup still works:
+Use the original Webpack setup. It is self-contained and already works.
 
 ```sh
 npm install --legacy-peer-deps --ignore-scripts
 npm start
-# or
+# or the simpler static build
 npm run bundle-dev
+npx serve dist
 ```
 
-See also BUILD.md.
+No external bundler (Vite, etc.) is required.
+
+## Vite (experimental only)
+
+A Vite config exists for testing, but it is not the recommended path.
+Workers still use Webpack's `worker-loader!` syntax, which is embedded in the current stack.
+
+If you want a fully embedded modern build later, the workers would need to be rewritten without external loader plugins. For now, stick with Webpack.
+
+See BUILD.md and BUILD_SIMPLE.md.

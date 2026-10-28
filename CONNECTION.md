@@ -2,34 +2,47 @@
 
 Common issues and workarounds for OpenLaser (fork of LaserWeb4).
 
+## Backend patch applied
+
+A forked `lw.comm-server` is now used (see package.json):
+https://github.com/lgxpowerna-gif/lw.comm-server
+
+**Changes in config.js:**
+- `firmwareWaitTime` default increased from 10 → **15** seconds
+- `grblWaitTime` default increased from 1 → **3** seconds
+- `smoothieWaitTime` / `tinygWaitTime` increased to 2 seconds
+
+This gives modern GRBL-ESP32 and Sculpfun boards more time to send their welcome string after reset.
+
 ## GRBL / Sculpfun / ESP32 boards
 
-Many modern diode lasers (Sculpfun S9, GRBL-ESP32, etc.) fail to connect with "No supported firmware detected" or timeout.
+Many modern diode lasers fail to connect with "No supported firmware detected" or timeout.
 
 ### Typical causes
 - Firmware does not send a welcome string immediately after soft-reset (Ctrl-X)
-- Detection timeout too short (default often ~10s in `lw.comm-server`)
+- Detection timeout too short
 - Wrong machine profile (use Generic GRBL, not Smoothie)
 - PWM max ($30) mismatch
 
 ### Workarounds that often work
 1. In Settings → Machine: select **Generic GRBL** profile.
 2. Set **PWM Max S Value** to **1000** (must match `$30` on the controller).
-3. Increase firmware detection time if the UI allows it, or edit `.env` in the backend (`lw.comm-server`) and raise the timeout.
-4. Try connecting twice (first connection sometimes fails, second succeeds). A simple frontend retry is planned.
+3. The forked backend now waits longer by default. You can still override with a `.env` file:
+   ```
+   FIRMWARE_WAIT_TIME=20
+   GRBL_WAIT_TIME=5
+   RESET_ON_CONNECT=1
+   ```
+4. Try connecting twice (first connection sometimes fails, second succeeds).
 5. Make sure laser mode is on: `$32=1`.
 6. Startup G-code should end with `M4 S0` for dynamic power mode.
 
 ### ESP32-specific
-Some GRBL-ESP32 builds do not reply to the initial firmware query the same way classic GRBL does. Longer timeout or a manual reconnect usually resolves it.
+Some GRBL-ESP32 builds do not reply to the initial firmware query the same way classic GRBL does. The longer timeout helps. If it still fails, the welcome string may need to be added in `server.js`.
 
-## Planned code improvements
-- Longer default detection timeout in `lw.comm-server`
-- Simple auto-retry on first connection failure (frontend or backend)
+## Planned further improvements
+- Simple auto-retry on first connection failure
 - Explicit ESP32 / Sculpfun profiles
 - Clearer error messages in the UI
-
-## Backend location
-The actual serial/firmware detection lives in the `lw.comm-server` submodule (not in this frontend repo). Changes there require updating or forking that package.
 
 See also ROADMAP.md Phase 2.

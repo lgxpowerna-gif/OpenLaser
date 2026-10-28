@@ -2,32 +2,33 @@
 
 ## Current status
 
-Vite starts, but the first real error is:
+Vite starts and serves the app after renaming key files from `.js` to `.jsx`.
 
-```
-Unexpected JSX expression
-File: src/index.js
-Help: JSX syntax is disabled and should be enabled via the parser options
-```
+### Renamed so far
+- `src/index.js` → `src/index.jsx`
+- `src/components/laserweb.js` → `src/components/laserweb.jsx`
+- `src/components/cam.js` → `src/components/cam.jsx`
+- `src/components/workspace.js` → `src/components/workspace.jsx`
+- `src/components/com.js` → `src/components/com.jsx`
 
-Vite (and its dependency scanner) does not treat `.js` files as JSX by default. The existing codebase uses JSX inside `.js` files.
+`index.html` points to `/src/index.jsx`.
 
-## Next steps to make Vite work
-
-1. Rename files that contain JSX from `.js` to `.jsx` (starting with `src/index.js` → `src/index.jsx` and the main components), **or**
-2. Add a small Vite plugin that forces the JSX loader on `src/**/*.js` before the dependency scan runs.
-
-## Install and run
+## How to run
 
 ```sh
 npm install --save-dev vite @vitejs/plugin-react
 npx vite --config vite.config.mjs
 ```
 
+The app is available at http://localhost:8080 (or the port Vite prints).
+
+## Remaining work
+
+Other component files that contain JSX may still need to be renamed from `.js` to `.jsx` as they are imported. Vite will report the next file that fails.
+
 ## Notes
 
-- The original Webpack setup still works (`npm start` / `npm run bundle-dev`).
-- Vite is experimental until the JSX-in-.js issue is resolved.
-- A corrupted line in `src/components/cam.js` was fixed during testing.
+- The original Webpack setup still works.
+- Vite is now past the first JSX parsing error on the entry point.
 
 See also BUILD.md.

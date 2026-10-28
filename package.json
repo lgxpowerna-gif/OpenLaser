@@ -1,7 +1,7 @@
 {
-  "name": "laserweb",
-  "version": "4.0.999",
-  "description": "LaserWeb",
+  "name": "openlaser",
+  "version": "4.1.0-alpha",
+  "description": "OpenLaser - Continued open-source Laser & CNC CAM / Controller (fork of LaserWeb4)",
   "main": "./src/index.js",
   "scripts": {
     "start-server": "node node_modules/lw.comm-server/server.js",
@@ -16,13 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LaserWeb/LaserWeb4.git"
+    "url": "git+https://github.com/lgxpowerna-gif/LaserWeb4.git"
   },
   "keywords": [
     "laser",
     "cnc",
     "cam",
-    "..."
+    "openlaser",
+    "laserweb"
   ],
   "author": "Peter van der Walt <peter.plaaswerf@gmail.com>",
   "contributors": [
@@ -31,13 +32,14 @@
     "João Matos <joao@tritao.eu>",
     "Todd Fleming <jscut.org>",
     "Jorge Robles <jorge.diego.robles@gmail.com>",
-    "Claudio Prezzi <cprezzi@comsulting.ch>"
+    "Claudio Prezzi <cprezzi@comsulting.ch>",
+    "lgxpowerna-gif (fork maintainer)"
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/LaserWeb/LaserWeb4/issues"
+    "url": "https://github.com/lgxpowerna-gif/LaserWeb4/issues"
   },
-  "homepage": "https://laserweb.yurl.ch",
+  "homepage": "https://github.com/lgxpowerna-gif/LaserWeb4",
   "devDependencies": {
     "ajv": "^5.2.1",
     "array-move": "^1.0.0",

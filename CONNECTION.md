@@ -1,53 +1,38 @@
-# Connection & Firmware Detection
+# Connection Reliability
 
-Common issues and workarounds for OpenLaser (fork of LaserWeb4).
+## What is already in place
 
-## Backend patch applied
+- Longer firmware detection timeout in the forked `lw.comm-server` (firmwareWaitTime 15 s, grblWaitTime 3 s)
+- Frontend auto-retry once if the first detection fails
+- Clearer error messages for no ports, disconnect, and alarms
+- Improved success message: “Firmware detected: grbl … Ready for laser work.”
 
-A forked `lw.comm-server` is now used (see package.json):
-https://github.com/lgxpowerna-gif/lw.comm-server
+## Recommended steps for GRBL / ESP32 diode lasers
 
-**Changes in config.js:**
-- `firmwareWaitTime` default increased from 10 → **15** seconds
-- `grblWaitTime` default increased from 1 → **3** seconds
-- `smoothieWaitTime` / `tinygWaitTime` increased to 2 seconds
+1. Power the board and connect the USB cable.
+2. In OpenLaser, select the correct port and baud (usually 115200).
+3. Click Connect.
+4. If detection fails the first time, wait — it will retry once automatically.
+5. Confirm the success message appears.
 
-This gives modern GRBL-ESP32 and Sculpfun boards more time to send their welcome string after reset.
+## Controller settings
 
-## Frontend auto-retry
+```
+$32=1
+$30=1000
+```
 
-A simple one-time auto-retry has been added in the frontend (`src/components/com.js`):
-- If the server reports "No supported firmware detected", the frontend automatically tries to connect once more after 1.5 seconds.
-- This covers the common case where the first detection fails but the second succeeds.
+Use **Generic GRBL** profile. Startup G-code should end with `M4 S0`.
 
-## GRBL / Sculpfun / ESP32 boards
+## If connection still fails
 
-Many modern diode lasers fail to connect with "No supported firmware detected" or timeout.
+- Try a different USB cable or port.
+- Confirm the board appears in the OS device list.
+- Restart the backend and try again.
+- Check that no other program is using the serial port.
 
-### Typical causes
-- Firmware does not send a welcome string immediately after soft-reset (Ctrl-X)
-- Detection timeout too short
-- Wrong machine profile (use Generic GRBL, not Smoothie)
-- PWM max ($30) mismatch
+## Backend
 
-### Workarounds that often work
-1. In Settings → Machine: select **Generic GRBL** profile.
-2. Set **PWM Max S Value** to **1000** (must match `$30` on the controller).
-3. The forked backend now waits longer by default. You can still override with a `.env` file:
-   ```
-   FIRMWARE_WAIT_TIME=20
-   GRBL_WAIT_TIME=5
-   RESET_ON_CONNECT=1
-   ```
-4. The frontend will automatically retry once on detection failure.
-5. Make sure laser mode is on: `$32=1`.
-6. Startup G-code should end with `M4 S0` for dynamic power mode.
+Forked server: https://github.com/lgxpowerna-gif/lw.comm-server
 
-### ESP32-specific
-Some GRBL-ESP32 builds do not reply to the initial firmware query the same way classic GRBL does. The longer timeout + auto-retry helps. If it still fails, the welcome string may need to be added in `server.js`.
-
-## Planned further improvements
-- Explicit ESP32 / Sculpfun profiles
-- Clearer error messages in the UI
-
-See also ROADMAP.md Phase 2.
+See also RELIABILITY.md and MACHINES.md.

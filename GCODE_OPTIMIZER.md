@@ -1,25 +1,18 @@
 # G-code Optimizer
 
-Reducing unnecessary G0 travel moves improves job time and reduces wear.
+Travel optimization runs **automatically** after every G-code generation.
 
-## Status
-
-- Simple travel optimizer module: `src/lib/gcode-optimizer.js`
-- **Automatic**: Optimization runs automatically after every G-code generation.
-- **Manual**: An “Optimize” button (magic wand) is still available in the CAM panel if you want to re-run it.
-- **Real progress**: The optimizer reports actual progress (based on lines processed).
-
-## How it works
+## Behavior
 
 1. Click **Generate**.
-2. When generation finishes, the optimizer automatically runs on the result.
-3. The progress bar shows the optimization progress.
-4. The optimized G-code is stored. View or Export it as usual.
+2. When generation finishes, the optimizer runs immediately.
+3. Progress is shown on the existing progress bar.
+4. Optimized G-code (consecutive G0 moves merged) is stored and ready to View or Export.
 
-You can still click the Optimize button later if you load external G-code or want to re-optimize.
+No manual button is needed.
 
-## Implementation notes
+## Implementation
 
-`optimizeGcodeTravel(gcode, onProgress)` is called from the generation completion callback in `src/components/cam.js`.
+`optimizeGcodeTravel()` is called from the generation completion callback in `src/components/cam.js`. It reports real progress based on lines processed.
 
-See also MACHINES.md for recommended L1/L2 settings.
+See also MACHINES.md for recommended settings.

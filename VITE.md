@@ -1,37 +1,33 @@
 # Vite Configuration (Experimental)
 
-A modern bundler option alongside the original Webpack 2 setup.
+## Current status
 
-## Install Vite
+Vite starts, but the first real error is:
 
-```sh
-npm install --save-dev vite
+```
+Unexpected JSX expression
+File: src/index.js
+Help: JSX syntax is disabled and should be enabled via the parser options
 ```
 
-## Run with Vite
+Vite (and its dependency scanner) does not treat `.js` files as JSX by default. The existing codebase uses JSX inside `.js` files.
+
+## Next steps to make Vite work
+
+1. Rename files that contain JSX from `.js` to `.jsx` (starting with `src/index.js` → `src/index.jsx` and the main components), **or**
+2. Add a small Vite plugin that forces the JSX loader on `src/**/*.js` before the dependency scan runs.
+
+## Install and run
 
 ```sh
-npx vite
-```
-
-Or add scripts to package.json:
-
-```json
-"dev:vite": "vite",
-"build:vite": "vite build"
-```
-
-Then:
-
-```sh
-npm run dev:vite
+npm install --save-dev vite @vitejs/plugin-react
+npx vite --config vite.config.mjs
 ```
 
 ## Notes
 
-- This is an **experimental** parallel setup. The original Webpack scripts (`npm start`, `npm run bundle-dev`) still work.
-- Vite expects an `index.html` at the project root (added).
-- The existing React 15 code may need small adjustments (JSX, workers, CSS imports) before Vite fully replaces Webpack.
-- Start here if you want fewer deprecation warnings and faster rebuilds.
+- The original Webpack setup still works (`npm start` / `npm run bundle-dev`).
+- Vite is experimental until the JSX-in-.js issue is resolved.
+- A corrupted line in `src/components/cam.js` was fixed during testing.
 
-See also BUILD.md and MODERNIZATION.md.
+See also BUILD.md.

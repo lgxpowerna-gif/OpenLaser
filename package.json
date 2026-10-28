@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lgxpowerna-gif/LaserWeb4.git"
+    "url": "git+https://github.com/lgxpowerna-gif/OpenLaser.git"
   },
   "keywords": [
     "laser",
@@ -40,9 +40,9 @@
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/lgxpowerna-gif/LaserWeb4/issues"
+    "url": "https://github.com/lgxpowerna-gif/OpenLaser/issues"
   },
-  "homepage": "https://github.com/lgxpowerna-gif/LaserWeb4",
+  "homepage": "https://github.com/lgxpowerna-gif/OpenLaser",
   "devDependencies": {
     "ajv": "^5.2.1",
     "array-move": "^1.0.0",

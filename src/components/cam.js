@@ -33,6 +33,7 @@ import { getGcode } from '../lib/cam-gcode';
 import { sendAsFile, appendExt, openDataWindow, captureConsole } from '../lib/helpers';
 import { ValidateSettings } from '../reducers/settings';
 import { ApplicationSnapshotToolbar } from './settings';
+import { optimizeGcodeTravel, smartBurnWhiteCleanup } from '../lib/gcode-optimizer';
 
 import { Button, ButtonToolbar, ButtonGroup, ProgressBar, Alert } from 'react-bootstrap'
 import Icon from './font-awesome'
@@ -93,7 +94,18 @@ class Cam extends React.Component {
                 (msg, level) => { CommandHistory.write(msg, level); },
                 (gcode) => {
                     clearInterval(__interval)
-                    that.props.dispatch(setGcode(gcode));
+                    // Auto-optimize travel moves and clean long Burn White runs
+                    let optimized = gcode;
+                    try {
+                        optimized = optimizeGcodeTravel(gcode, (p) => {
+                            that.props.dispatch(generatingGcode(true, p));
+                        });
+                        optimized = smartBurnWhiteCleanup(optimized);
+                    } catch (e) {
+                        console.error('Travel optimizer failed:', e);
+                        CommandHistory.error('Travel optimization failed — using original G-code. ' + (e.message || ''));
+                    }
+                    that.props.dispatch(setGcode(optimized));
                     that.props.dispatch(generatingGcode(false))
                 },
                 (threads) => {
@@ -121,14 +133,12 @@ class Cam extends React.Component {
             nextProps.operations !== this.props.operations ||
             nextProps.currentOperation !== this.props.currentOperation ||
             nextProps.bounds !== this.props.bounds ||
-            nextProps.gcode !== this.props.gcode ||    // Needed for saveGcode() to work
+            nextProps.gcode !== this.props.gcode ||
             nextProps.gcoding.percent !== this.props.gcoding.percent ||
             nextProps.gcoding.enable !== this.props.gcoding.enable ||
             nextState.filter !== this.state.filter
         );
     }
-
-    
 
     render() {
         let { settings, documents, operations, currentOperation, toggleDocumentExpanded, loadDocument, bounds } = this.props;
@@ -240,14 +250,11 @@ Cam = connect(
             confirm("Are you sure?", (data) => { if (data) dispatch(resetWorkspace()); })
         },
         loadDocument: (e, modifiers = {}) => {
-            // TODO: report errors
             for (let file of e.target.files) {
                 let reader = new FileReader;
                 if (file.name.substr(-4) === '.svg') {
                     reader.onload = () => {
                         const release = captureConsole()
-
-                        //console.log('loadDocument: construct Parser');
                         let parser = new Parser({});
                         parser.parse(reader.result)
                             .then((tags) => {
@@ -258,22 +265,16 @@ Cam = connect(
                                     CommandHistory.dir("The file has minor issues. Please check document is correctly loaded!", warns, 2)
                                 if (errors.length)
                                     CommandHistory.dir("The file has serious issues. If you think is not your fault, report to LW dev team attaching the file.", errors, 3)
-
-                                //onsole.log('loadDocument: imageTagPromise');
                                 imageTagPromise(tags).then((tags) => {
-                                    console.log('loadDocument: dispatch');
                                     dispatch(loadDocument(file, { parser, tags }, modifiers));
                                 })
                             })
                             .catch((e) => {
-                                //console.log('loadDocument: catch:', e);
                                 release(true);
                                 CommandHistory.dir("The file has serious issues. If you think is not your fault, report to LW dev team attaching the file.", String(e), 3)
                                 console.error(e)
                             })
-
                     }
-                    //console.log('loadDocument: readAsText');
                     reader.readAsText(file);
                 }
                 else if (file.name.substr(-4).toLowerCase() === '.dxf') {
@@ -285,7 +286,6 @@ Cam = connect(
                     reader.readAsText(file);
                 }
                 else if (file.type.substring(0, 6) === 'image/') {
-
                     reader.onload = () => {
                         promisedImage(reader.result)
                             .then((img) => {

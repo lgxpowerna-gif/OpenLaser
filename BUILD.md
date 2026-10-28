@@ -7,27 +7,40 @@ The original stack is old. These notes help get a working build on modern Node.
 ```sh
 git clone https://github.com/lgxpowerna-gif/OpenLaser.git
 cd OpenLaser
-npm run installdev
+npm install --legacy-peer-deps
 npm start
 ```
 
+A `.npmrc` with `legacy-peer-deps=true` is now included so `npm install` works more reliably.
+
 ## Known issues on Node 18 / 20
 
-- Webpack 2 and webpack-dev-server 2.x produce many deprecation warnings.
-- Some Babel 6 plugins may need `--legacy-peer-deps` or an older npm.
-- `npm install` may fail on certain git dependencies; try:
+- Webpack 2 and webpack-dev-server 2.x produce many deprecation warnings (expected).
+- Some Babel 6 plugins are obsolete but still functional for this codebase.
+- Git dependencies may occasionally fail; retry with:
   ```sh
   npm install --legacy-peer-deps
   ```
-- If `webpack-dev-server` fails to start, you can still run:
+- If `webpack-dev-server` fails to start, build a static bundle instead:
   ```sh
-npm run bundle-dev
+  npm run bundle-dev
   ```
-  then serve the `dist` folder with any static server.
+  then serve the `dist` folder with any static server (e.g. `npx serve dist`).
 
 ## Backend
 
-The forked `lw.comm-server` is used (longer timeouts). Install it via the package.json git dependency.
+The forked `lw.comm-server` (with longer firmware timeouts) is used. It is installed via the `package.json` git dependency.
+
+## Recommended install sequence
+
+```sh
+git clone https://github.com/lgxpowerna-gif/OpenLaser.git
+cd OpenLaser
+npm install --legacy-peer-deps
+# If submodules are needed:
+# git submodule update --init --recursive
+npm start
+```
 
 ## Next modernization steps
 

@@ -127,7 +127,7 @@ export const SETTINGS_INITIALSTATE = {
     gcodeLaserIntensity: 'S',
     gcodeLaserIntensitySeparateLine: false,
     gcodeSMinValue: 0,
-    gcodeSMaxValue: 1,
+    gcodeSMaxValue: 1000,
     gcodeCheckSizePower: 0,
     gcodeToolTestPower: 0,
     gcodeToolTestDuration: 0,

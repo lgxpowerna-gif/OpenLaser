@@ -22,7 +22,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Connection / firmware detection timeouts increased in forked lw.comm-server (firmwareWaitTime 15s, grblWaitTime 3s)
 - [x] Frontend auto-retry on first firmware detection failure
 - [x] Default PWM Max S Value changed from 1 to 1000 (matches typical GRBL $30)
-- [ ] Out-of-bounds handling and machine bounds checks
+- [x] Basic machine bounds warning before G-code generation
 - [ ] Dependency security and build failures on modern systems
 
 ## Phase 3 — Modernization

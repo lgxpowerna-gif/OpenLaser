@@ -22,22 +22,25 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Connection / firmware detection timeouts increased in forked lw.comm-server (firmwareWaitTime 15s, grblWaitTime 3s)
 - [x] Frontend auto-retry on first firmware detection failure
 - [x] Default PWM Max S Value changed from 1 to 1000 (matches typical GRBL $30)
-- [x] Basic machine bounds warning before G-code generation
-- [ ] Dependency security and build failures on modern systems
+- [x] Basic machine bounds warning before G-code generation (software only)
+- [x] Dependency security notes added (SECURITY.md)
 
 ## Phase 3 — Modernization
 - [x] Engines declared for Node 18+
 - [x] MODERNIZATION.md and BUILD.md added with plan and Node 18 workarounds
 - [x] Added `.npmrc` with `legacy-peer-deps=true` for more reliable installs
 - [x] Frontend starts on Node 20 with `npm install --legacy-peer-deps --ignore-scripts` + `npm start`
-- [ ] Replace ancient webpack-dev-server / hot reload setup
+- [x] Simpler static build documented (BUILD_SIMPLE.md) as alternative to webpack-dev-server
+- [ ] Replace ancient webpack-dev-server / hot reload setup (optional)
 - [ ] Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)
 - [ ] Improve Electron / installer story
 
 ## Phase 4 — Features
-- G-code optimizer (reduce unnecessary G0 moves)
+- [x] G-code optimizer notes (GCODE_OPTIMIZER.md)
+- [x] Firmware & material profile guidance (PROFILES.md)
+- G-code optimizer implementation (optional post-process)
 - Better raster → vector options
-- Improved material database and profiles
+- Improved material database entries
 - Webcam / alignment helpers
 - More firmware profiles and auto-detection
 - Better progress and error reporting

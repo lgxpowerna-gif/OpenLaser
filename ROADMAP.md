@@ -25,6 +25,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [x] Default PWM Max S Value changed from 1 to 1000 (matches typical GRBL $30)
 - [x] Basic machine bounds warning before G-code generation (software only)
 - [x] Dependency security notes added (SECURITY.md)
+- [x] Professional reliability checklist (RELIABILITY.md)
 
 ## Phase 3 — Modernization
 - [x] Engines declared for Node 18+
@@ -37,7 +38,7 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - [ ] Improve Electron / installer story
 
 ## Phase 4 — Features
-- [x] G-code travel optimizer runs **automatically** after generation (manual button removed)
+- [x] G-code travel optimizer runs **automatically** after generation
 - [x] Real progress reporting during optimization
 - [x] Firmware & material profile guidance (PROFILES.md)
 - [x] Recommended settings for L1 and L2 machines (MACHINES.md)

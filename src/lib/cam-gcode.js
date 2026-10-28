@@ -43,8 +43,40 @@ export const expandHookGCode = (operation) =>{
     return op;
 }
 
+function checkDocumentBounds(settings, documents, showAlert) {
+    if (!settings || !documents || !documents.length) return;
+    const mw = Number(settings.machineWidth) || 0;
+    const mh = Number(settings.machineHeight) || 0;
+    if (mw <= 0 || mh <= 0) return;
+
+    let maxX = -Infinity, maxY = -Infinity, minX = Infinity, minY = Infinity;
+    let hasBounds = false;
+
+    for (const doc of documents) {
+        if (!doc || !doc.transform2d) continue;
+        const tx = doc.transform2d[4] || 0;
+        const ty = doc.transform2d[5] || 0;
+        minX = Math.min(minX, tx);
+        minY = Math.min(minY, ty);
+        maxX = Math.max(maxX, tx);
+        maxY = Math.max(maxY, ty);
+        hasBounds = true;
+    }
+
+    if (!hasBounds) return;
+
+    if (maxX > mw || maxY > mh || minX < 0 || minY < 0) {
+        showAlert(
+            `Document may exceed machine bounds (${mw} x ${mh} mm). Check placement before running. Origin: (${minX.toFixed(1)}, ${minY.toFixed(1)})`,
+            'warning'
+        );
+    }
+}
+
 export function getGcode(settings, documents, operations, documentCacheHolder, showAlert, done, progress) {
     "use strict";
+
+    checkDocumentBounds(settings, documents, showAlert);
 
     let starttime=new Date().getTime()
 

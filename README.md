@@ -1,3 +1,38 @@
+# OpenLaser
+
+**A continued, modernized open-source Laser & CNC CAM / Controller**
+
+Fork of the abandoned [LaserWeb4](https://github.com/LaserWeb/LaserWeb4) project.
+
+LaserWeb had all the right features (SVG/DXF/image to G-code, raster, WebGL viewer, multi-firmware support, web-based) but development stalled. This is a clean continuation focused on fixing bugs, inconsistencies, and modernizing the stack.
+
+**License**: AGPL-3.0 (same as original). All original copyright notices and credits are preserved.
+
+## Why the rename?
+
+Original project appears largely abandoned (binaries years old, limited maintenance). Renaming avoids confusion and trademark issues while keeping full attribution.
+
+## Current status
+
+- Forked from LaserWeb4 `dev-es6`
+- Goal: fix known bugs (connection issues, raster glitches, Firefox recursion, dependency rot, inconsistent G-code, etc.), improve reliability, and eventually modernize (React 18+, current Webpack/Vite, Node 18+).
+- Binaries not yet rebuilt. Development environment only for now.
+
+## Original LaserWeb credits
+
+- Peter van der Walt (Project Founder)
+- Todd Fleming (CNC CAM Modules, WebGL and CAM UI)
+- Sebastien Mischler (Dev Backend, Raster Module, SVG Parser)
+- Jorge Robles (Settings Module, User Interface)
+- Claudio Prezzi (Communications Modules and Server)
+- Monte Krol, Anthony Tamrin, Ariel Yahni, Anthony Bolgar, and all community contributors
+
+See original README below for technical details, supported firmwares, and Docker instructions.
+
+---
+
+## Original README (preserved)
+
 # LaserWeb (4.0.x)
 
 This repository is a "development environment" - and no regular user would have to touch this at all (dont download the repo from here, use the Download links below)
@@ -74,4 +109,3 @@ If you want to contribute, below are long standing community-requested enhanceme
 ## How to contribute ?
 
 Details on [https://github.com/LaserWeb/LaserWeb4/wiki/How-to-Contribute](https://github.com/LaserWeb/LaserWeb4/wiki/How-to-Contribute)
-

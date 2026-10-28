@@ -8,25 +8,26 @@ Continuation of LaserWeb4 under the name **OpenLaser**.
 - Improve reliability for common diode lasers (GRBL, Sculpfun, etc.)
 - Add useful missing features from the original wishlist
 
-## Phase 1 — Stabilization & Branding (current)
+## Phase 1 — Stabilization & Branding
 - [x] Fork and rebrand content to OpenLaser
 - [x] Update package.json name/description
+- [x] Update About page and page title
 - [ ] Rename GitHub repository to `OpenLaser` (user action in Settings)
-- [ ] Document current build requirements and known breakage
-- [ ] Add engines field and basic modern Node compatibility notes
+- [x] Document current build requirements and known breakage
+- [x] Add engines field and basic modern Node compatibility notes
 
 ## Phase 2 — Critical Bug Fixes
-- Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards)
-- Raster G-code generation recursion crash in Firefox (xregexp heavy post-processing)
-- Jerky motion on raster due to overly fine S-value steps
-- Inconsistent PWM / S-value scaling vs other tools
-- Out-of-bounds handling and machine bounds checks
-- Dependency security and build failures on modern systems
+- [x] Firefox raster G-code generation recursion crash (safer iterative postProcessRaster)
+- [ ] Connection / firmware detection failures (GRBL-ESP32, some Sculpfun boards)
+- [ ] Jerky motion on raster due to overly fine S-value steps
+- [ ] Inconsistent PWM / S-value scaling vs other tools
+- [ ] Out-of-bounds handling and machine bounds checks
+- [ ] Dependency security and build failures on modern systems
 
 ## Phase 3 — Modernization
 - Move from React 15 + Webpack 2 + Babel 6 to current React (or keep stable and upgrade tooling first)
 - Replace ancient webpack-dev-server / hot reload setup
-- Node 18+ / 20+ support
+- Node 18+ / 20+ support (engines already declared)
 - Update or replace unmaintained submodules (lw.comm-server, raster-to-gcode, etc.)
 - Improve Electron / installer story
 
